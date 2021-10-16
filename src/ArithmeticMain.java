@@ -1,7 +1,5 @@
-import java.sql.SQLOutput;
-import java.util.Random;
 import java.util.Scanner;
-import java.util.function.Function;
+
 
 public class ArithmeticMain {
 
@@ -14,18 +12,8 @@ public class ArithmeticMain {
         int value = scanner.nextInt();
 
         for ( int i=0; i<excNum ; i++){
-            System.out.println(newExc(value));
+            GoFile.StringToFile(newExc(value));
         }
-
-
-//        Fraction f1 = new Fraction(5, 2);
-//        Fraction f2 = new Fraction(2, 4);
-//        System.out.println(FtoT(f1.simplify()));
-//        System.out.println(FtoT(f2.simplify()));
-//        System.out.println(FtoT(f1.add(f2)));
-//        System.out.println(FtoT(f1.minus(f2)));
-//        System.out.println(FtoT(f1.multiply(f2)));
-//        System.out.println(FtoT(f1.divide(f2)));
 
     }
     //假分数转换成真分数
@@ -47,34 +35,8 @@ public class ArithmeticMain {
             return i+"`"+Numerator + "/" + Denominator;
         }
     }
-    //
+    //生成四则运算和答案  并写入对应文件中
     private static String  newExc(int value) {
-        //
-        int randomNum1 = 1 + (int)(Math.random() * (4));
-        int randomNum2 = 1 + (int)(Math.random() * (4));
-        //
-        String str1 = " ";
-        String str2 = " ";
-        //
-        if (randomNum1 == 1){
-            str1 = "+";
-        }else if(randomNum1 == 2){
-            str1 = "-";
-        }else if(randomNum1 == 3){
-            str1 = "*";
-        }else {
-            str1 = "/";
-        }
-        //
-        if (randomNum2 == 1){
-            str2 = "+";
-        }else if(randomNum2 == 2){
-            str2 = "-";
-        }else if(randomNum2 == 3){
-            str2 = "*";
-        }else {
-            str2 = "/";
-        }
         //
         int FenZi1 = 1 + (int)(Math.random() * (value));
         int FenMu1 = 1 + (int)(Math.random() * (value));
@@ -90,9 +52,84 @@ public class ArithmeticMain {
         int FenMu3 = 1 + (int)(Math.random() * (value));
         Fraction Fnum3 = new Fraction(FenZi3, FenMu3);
         String num3 = FtoT(Fnum3);
-        //
-        return "("+num1+")"+" "+str1+" "+"("+num2+")" +" "+ str2 +" "+ "("+num3+")" + " = ";
 
+        int randomNum1 = 1 + (int)(Math.random() * (4));
+        int randomNum2 = 1 + (int)(Math.random() * (4));
+        //
+        String str1 = " ";
+        String str2 = " ";
+        //
+        Fraction resultF = null;
+        //
+        if (randomNum1 == 1){
+            str1 = "+";
+        }else if(randomNum1 == 2){
+            str1 = "-";
+        }else if(randomNum1 == 3){
+            str1 = "*";
+            Fnum1.multiply(Fnum2);
+        }else {
+            str1 = "/";
+            Fnum1.divide(Fnum2);
+        }
+        //
+        if (randomNum2 == 1){
+            str2 = "+";
+        }else if(randomNum2 == 2){
+            str2 = "-";
+        }else if(randomNum2 == 3){
+            str2 = "*";
+        }else {
+            str2 = "/";
+        }
+
+        //1
+        if (randomNum1 ==1 && randomNum2==1){ resultF = Fnum1.add(Fnum2).add(Fnum3);}
+        //2
+        if (randomNum1 ==1 && randomNum2==2){ resultF = Fnum1.add(Fnum2).minus(Fnum3);}
+        //3
+        if (randomNum1 ==1 && randomNum2==3){ resultF = Fnum2.multiply(Fnum3).add(Fnum1);}
+        //4
+        if (randomNum1 ==1 && randomNum2==4){ resultF = Fnum2.divide(Fnum3).add(Fnum1);}
+
+
+        //5
+        if (randomNum1 ==2 && randomNum2==1){ resultF = Fnum1.minus(Fnum2).add(Fnum3);}
+        //6
+        if (randomNum1 ==2 && randomNum2==2){ resultF = Fnum1.minus(Fnum2).minus(Fnum3);}
+        //7
+        if (randomNum1 ==2 && randomNum2==3){ resultF = Fnum1.minus(Fnum2.multiply(Fnum3));}
+        //8
+        if (randomNum1 ==2 && randomNum2==4){ resultF = Fnum1.minus(Fnum2.divide(Fnum3));}
+
+
+        //9
+        if (randomNum1 ==3 && randomNum2==1){ resultF = Fnum1.multiply(Fnum2).add(Fnum3);}
+        //10
+        if (randomNum1 ==3 && randomNum2==2){ resultF = Fnum1.multiply(Fnum2).minus(Fnum3);}
+        //11
+        if (randomNum1 ==3 && randomNum2==3){ resultF = Fnum1.multiply(Fnum2).multiply(Fnum3);}
+        //12
+        if (randomNum1 ==3 && randomNum2==4){ resultF = Fnum1.multiply(Fnum2).divide(Fnum3);}
+
+
+        //13
+        if (randomNum1 ==4 && randomNum2==1){ resultF = Fnum1.divide(Fnum2).add(Fnum3);}
+        //14
+        if (randomNum1 ==4 && randomNum2==2){ resultF = Fnum1.divide(Fnum2).minus(Fnum3);}
+        //15
+        if (randomNum1 ==4 && randomNum2==3){ resultF = Fnum1.divide(Fnum2).multiply(Fnum3);}
+        //16
+        if (randomNum1 ==4 && randomNum2==4){ resultF = Fnum1.divide(Fnum2).divide(Fnum3);}
+
+        //
+        assert resultF != null;
+        if (resultF.getNumerator() < 0){
+            return newExc(value);
+        }else {
+            GoFile.ResultToFile(FtoT(resultF));
+            return "("+num1+")"+" "+str1+" "+"("+num2+")" +" "+ str2 +" "+ "("+num3+")" + " = ";
+        }
 
     }
 
