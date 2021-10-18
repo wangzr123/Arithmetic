@@ -27,7 +27,7 @@ public class ArithmeticMain {
             Numerator -= Denominator;
             i++;
         }
-        if(i==0){
+        if(i==0 && Numerator!=0){
             //真分数
             return Numerator + "/" + Denominator;
         }else if(Numerator == 0){
@@ -43,17 +43,17 @@ public class ArithmeticMain {
     public static String  newExc(int value) {
         //随机生成分子和分母，分子范围是小于value  分母指定小于100
         int FenZi1 = 1 + (int)(Math.random() * (value));
-        int FenMu1 = 1 + (int)(Math.random() * (100));
+        int FenMu1 = 1 + (int)(Math.random() * (10));
         Fraction Fnum1 = new Fraction(FenZi1, FenMu1);
         String num1 = FtoT(Fnum1);
         //随机生成分子和分母，分子范围是小于value  分母指定小于100
         int FenZi2 = 1 + (int)(Math.random() * (value));
-        int FenMu2 = 1 + (int)(Math.random() * (100));
+        int FenMu2 = 1 + (int)(Math.random() * (10));
         Fraction Fnum2 = new Fraction(FenZi2, FenMu2);
         String num2 = FtoT(Fnum2);
         //随机生成分子和分母，分子范围是小于value  分母指定小于100
         int FenZi3 = 1 + (int)(Math.random() * (value));
-        int FenMu3 = 1 + (int)(Math.random() * (100));
+        int FenMu3 = 1 + (int)(Math.random() * (10));
         Fraction Fnum3 = new Fraction(FenZi3, FenMu3);
         String num3 = FtoT(Fnum3);
         //生成两个随机数（1.2.3.4）
@@ -86,56 +86,78 @@ public class ArithmeticMain {
         }else {
             str2 = "/";
         }
-        //下面进行分组  因为是确定了是两个运算符的运算
-        //使用有16种可能的四则运算
-        //1
-        if (randomNum1 ==1 && randomNum2==1){ resultF = Fnum1.add(Fnum2).add(Fnum3);}
-        //2
-        if (randomNum1 ==1 && randomNum2==2){ resultF = Fnum1.add(Fnum2).minus(Fnum3);}
-        //3
-        if (randomNum1 ==1 && randomNum2==3){ resultF = Fnum2.multiply(Fnum3).add(Fnum1);}
-        //4
-        if (randomNum1 ==1 && randomNum2==4){ resultF = Fnum2.divide(Fnum3).add(Fnum1);}
+        //
+        int randomNum3 = 1 + (int)(Math.random() * (2));
+        if (randomNum3 == 1){
+            //下面进行分组  因为是确定了是两个运算符的运算
+            //使用有16种可能的四则运算
+            //1
+            if (randomNum1 ==1 && randomNum2==1){ resultF = Fnum1.add(Fnum2).add(Fnum3);}
+            //2
+            if (randomNum1 ==1 && randomNum2==2){ resultF = Fnum1.add(Fnum2).minus(Fnum3);}
+            //3
+            if (randomNum1 ==1 && randomNum2==3){ resultF = Fnum2.multiply(Fnum3).add(Fnum1);}
+            //4
+            if (randomNum1 ==1 && randomNum2==4){ resultF = Fnum2.divide(Fnum3).add(Fnum1);}
 
 
-        //5
-        if (randomNum1 ==2 && randomNum2==1){ resultF = Fnum1.minus(Fnum2).add(Fnum3);}
-        //6
-        if (randomNum1 ==2 && randomNum2==2){ resultF = Fnum1.minus(Fnum2).minus(Fnum3);}
-        //7
-        if (randomNum1 ==2 && randomNum2==3){ resultF = Fnum1.minus(Fnum2.multiply(Fnum3));}
-        //8
-        if (randomNum1 ==2 && randomNum2==4){ resultF = Fnum1.minus(Fnum2.divide(Fnum3));}
+            //5
+            if (randomNum1 ==2 && randomNum2==1){ resultF = Fnum1.minus(Fnum2).add(Fnum3);}
+            //6
+            if (randomNum1 ==2 && randomNum2==2){ resultF = Fnum1.minus(Fnum2).minus(Fnum3);}
+            //7
+            if (randomNum1 ==2 && randomNum2==3){ resultF = Fnum1.minus(Fnum2.multiply(Fnum3));}
+            //8
+            if (randomNum1 ==2 && randomNum2==4){ resultF = Fnum1.minus(Fnum2.divide(Fnum3));}
 
 
-        //9
-        if (randomNum1 ==3 && randomNum2==1){ resultF = Fnum1.multiply(Fnum2).add(Fnum3);}
-        //10
-        if (randomNum1 ==3 && randomNum2==2){ resultF = Fnum1.multiply(Fnum2).minus(Fnum3);}
-        //11
-        if (randomNum1 ==3 && randomNum2==3){ resultF = Fnum1.multiply(Fnum2).multiply(Fnum3);}
-        //12
-        if (randomNum1 ==3 && randomNum2==4){ resultF = Fnum1.multiply(Fnum2).divide(Fnum3);}
+            //9
+            if (randomNum1 ==3 && randomNum2==1){ resultF = Fnum1.multiply(Fnum2).add(Fnum3);}
+            //10
+            if (randomNum1 ==3 && randomNum2==2){ resultF = Fnum1.multiply(Fnum2).minus(Fnum3);}
+            //11
+            if (randomNum1 ==3 && randomNum2==3){ resultF = Fnum1.multiply(Fnum2).multiply(Fnum3);}
+            //12
+            if (randomNum1 ==3 && randomNum2==4){ resultF = Fnum1.multiply(Fnum2).divide(Fnum3);}
 
 
-        //13
-        if (randomNum1 ==4 && randomNum2==1){ resultF = Fnum1.divide(Fnum2).add(Fnum3);}
-        //14
-        if (randomNum1 ==4 && randomNum2==2){ resultF = Fnum1.divide(Fnum2).minus(Fnum3);}
-        //15
-        if (randomNum1 ==4 && randomNum2==3){ resultF = Fnum1.divide(Fnum2).multiply(Fnum3);}
-        //16
-        if (randomNum1 ==4 && randomNum2==4){ resultF = Fnum1.divide(Fnum2).divide(Fnum3);}
+            //13
+            if (randomNum1 ==4 && randomNum2==1){ resultF = Fnum1.divide(Fnum2).add(Fnum3);}
+            //14
+            if (randomNum1 ==4 && randomNum2==2){ resultF = Fnum1.divide(Fnum2).minus(Fnum3);}
+            //15
+            if (randomNum1 ==4 && randomNum2==3){ resultF = Fnum1.divide(Fnum2).multiply(Fnum3);}
+            //16
+            if (randomNum1 ==4 && randomNum2==4){ resultF = Fnum1.divide(Fnum2).divide(Fnum3);}
+        }
+        else {
+            //1
+            if (randomNum1 == 1){ resultF = Fnum1.add(Fnum2); }
+            //2
+            if (randomNum1 == 2){ resultF = Fnum1.minus(Fnum2); }
+            //3
+            if (randomNum1 == 3){ resultF = Fnum1.multiply(Fnum2);}
+            //4
+            if (randomNum1 == 4){ resultF = Fnum1.divide(Fnum2);}
+
+        }
+
 
 
         assert resultF != null;
-        if (resultF.getNumerator() < 0){
+        if (resultF.getNumerator() < 0  || resultF.getNumerator()/ resultF.getDenominator() > value){
             //判断分子是否为负数  如果是就重新生成一个
+            //判断结果是否大于value
             return newExc(value);
         }else {
             //计算结果并把结果写入文件
             GoFile.ResultToFile(FtoT(resultF));
-            return "("+num1+")"+" "+str1+" "+"("+num2+")" +" "+ str2 +" "+ "("+num3+")" + " = ";
+            if (randomNum3 == 1){
+                return "("+FtoT(Fnum1.simplify())+")"+" "+str1+" "+"("+FtoT(Fnum2.simplify())+")" +" "+ str2 +" "+ "("+FtoT(Fnum3.simplify())+")" + " = ";
+            }else {
+                return "("+FtoT(Fnum1.simplify())+")"+" "+str1+" "+"("+FtoT(Fnum2.simplify())+")" +" "+ " = ";
+            }
+
         }
 
     }

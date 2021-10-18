@@ -46,7 +46,7 @@ public class Fraction {
         public Fraction simplify() {
 // 格式化
             if (this.numerator == 0) {
-                this.denominator = null;
+                this.denominator = 1;
                 return this;
             } else if (this.denominator * this.numerator > 0
                     && this.denominator < 0) {
